@@ -23,6 +23,16 @@ module.exports = defineConfig({
   //         }
   //       }
   //   },
+  proxy:{
+    "/dev/api":{
+        target:"http://119.45.133.128:8089",
+        ws:true,
+        changOrigin:true,
+        pathRewrite:{
+            "^/dev/api":""
+        }
+    }
+}
   },
   // 关闭eslint
   lintOnSave: false
