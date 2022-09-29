@@ -1,23 +1,44 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import HomeView from "../views/HomeView.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: HomeView,
+    name: "login",
+    component: ()=> import('../views/login/login'),
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    path: "/houtai",
+    name: "houtai",
+    component: ()=>import('../views/houtai/houtai'),
+    children:[
+      //机构管理
+      {
+        path:"/department",
+        name:'department',
+        component:() => import('../views/department/department')
+      },
+      //用户管理
+      {
+        path:"/userList",
+        name:'userList',
+        component:() => import('../views/userList/userList')
+      },
+      //角色管理
+      {
+        path:"/roleList",
+        name:'roleList',
+        component:() => import('../views/roleList/roleList')
+      },
+      //权限管理
+      {
+        path:"/menuList",
+        name:'menuList',
+        component:() => import('../views/menuList/menuList')
+      },
+    ]
   },
 ];
 
