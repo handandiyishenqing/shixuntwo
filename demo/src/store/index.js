@@ -1,19 +1,38 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import {getUserInfo,setuserinfo} from '../utils/auth'
-Vue.use(Vuex);
+import Vue from 'vue'
+import Vuex from 'vuex'
+import { setlotionToken, getlotionToken, setlotionuser, getlotionuser } from "../utils/auth";
+import { handelLogin } from "../api/login";
+
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    userinfo: getUserInfo()|| ""
+    token: getlotionToken() || '',
+    user: '',
   },
   getters: {
-    userinfo(state){
-      console.log(JSON.stringify(state.userinfo));
-      return state.userinfo
+    TOKEN(state) {
+      return state.token
     }
   },
-  mutations: {},
-  actions: {},
-  modules: {},
-});
+  mutations: {
+    handleLogin(state, obj) {
+      console.log(obj);
+      state.token = obj.token
+      setlotionToken(obj.token)
+    }
+  },
+  actions: {
+    async handleLogin({ commit }, str) {
+      try {
+        const hanLog = await handelLogin(str);
+        commit('handleLogin', hanLog)
+        return hanLog
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  modules: {
+  }
+})

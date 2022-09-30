@@ -1,18 +1,24 @@
-const USER_INFO = "userinfo"
+const TOKEN = 'token'
+const INFO = 'userInfo'
 
+//获取token
+export const setlotionToken = (token) => {
+    localStorage.setItem(TOKEN, token)
+}
+//获取token
+export const getlotionToken = () => {
+    return localStorage.getItem(TOKEN || '')
+}
 //存储用户信息
-export const setuserinfo = (userinfo) =>{
-    localStorage.setItem(USER_INFO,JSON.stringify(userinfo))
+export const setlotionuser = (user) => {
+    localStorage.setItem(INFO, JSON.stringify(user))
 }
 //获取用户信息
-export const getUserInfo = () => {
-    if(localStorage.getItem(USER_INFO) === "undefined"){
-      return "{}"
-    }
-    return JSON.parse(localStorage.getItem(USER_INFO) || "{}")
-  }
-// 删除用户信息
-export const removeTokenAndUserInfo = () => {
-    localStorage.removeItem(USER_INFO)
-  }
-  
+export const getlotionuser = () => {
+    return JSON.parse(localStorage.getItem(INFO || '{}'))
+}
+//删除本地数据
+export const remove = () => {
+    localStorage.removeItem('TOKEN')
+    localStorage.removeItem('INFO')
+}
